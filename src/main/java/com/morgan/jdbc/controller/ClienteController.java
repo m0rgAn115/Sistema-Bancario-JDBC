@@ -13,6 +13,11 @@ public class ClienteController {
 	public void registrarCliente(Cliente cliente) {
 		clienteDAO.registrar(cliente);
 	}
+
+	public boolean iniciarSesion(int id,String contraseña) {
+		return clienteDAO.iniciarSesion(id,contraseña);
+		
+	}
 	
 	
 }

@@ -12,6 +12,7 @@ import com.morgan.jdbc.factory.ConnectionFactory;
 import com.morgan.modelos.Cliente;
 
 public class ClienteDAO {
+	private static Cliente cliente;
 
 	public void registrar(Cliente cliente) {
 		Connection con = new ConnectionFactory().recuperaConexion();
@@ -50,6 +51,50 @@ public class ClienteDAO {
 					}
 				
 				}
+	}
+
+
+
+	public boolean iniciarSesion(int id,String contraseña) {
+		final Connection con = new ConnectionFactory().recuperaConexion();
+		boolean Validacion = false;
+		
+		try(con){
+			final PreparedStatement statement = con.prepareStatement("Select * FROM CLIENTE WHERE ID_CLIENTE=? AND CONTRASEÑA_CLIENTE=?");
+			try(statement){
+				statement.setInt(1, id);
+				statement.setString(2, contraseña);
+				
+				ResultSet resultSet = statement.executeQuery();
+				resultSet.next();
+				if(resultSet.getInt("ID_CLIENTE")==id) {
+					
+					String nombre=resultSet.getString("NOMBRE_CLIENTE");
+					String direccion=resultSet.getString("DIRECCION_CLIENTE");
+					String telefono=resultSet.getString("TELEFONO_CLIENTE");
+					
+					setCliente(id, contraseña, nombre, direccion, telefono);
+					
+					JOptionPane.showMessageDialog(null, "Inicio de Sesion Exitoso!");
+					System.out.println("Inicio de Sesion Exitoso!");
+					Validacion = true;
+					
+			}			
+			}
+			
+		}catch(SQLException e) {
+			JOptionPane.showMessageDialog(null, "Credenciales Incorrectas!");
+			throw new RuntimeException(e);
+		}
+		return Validacion;
+		
+	}
+	
+	public void setCliente(int id,String contraseña,String nombre,String direccion,String telefono) {
+		ClienteDAO.cliente = new Cliente(id,contraseña,nombre,direccion,telefono);
+	}
+	public Cliente getCliente() {
+		return ClienteDAO.cliente;
 	}
 
 }

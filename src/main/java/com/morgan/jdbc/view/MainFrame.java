@@ -5,6 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.morgan.jdbc.controller.ClienteController;
+import com.morgan.jdbc.controller.CuentaController;
+import com.morgan.modelos.Cliente;
+import com.morgan.modelos.Cuenta;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,7 +31,10 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNoCliente;
 	private JPasswordField passContraseña;
-
+	private Cuenta cuenta;
+	private ClienteController clienteController;
+	private Cliente cliente;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -49,6 +58,9 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		clienteController = new ClienteController();
+		cliente = new Cliente();
+		
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -198,7 +210,14 @@ public class MainFrame extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Inicio Sesion");
+				int id = Integer.parseInt(txtNoCliente.getText());
+				String contraseña = passContraseña.getText();				
+				if(clienteController.iniciarSesion(id,contraseña)) {
+					MainFrame.this.dispose();
+					MenuPrincipalFrame menu = new MenuPrincipalFrame();
+					menu.setVisible(true);
+				}
+				
 			}
 		});
 		lblNewLabel_5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -240,5 +259,9 @@ public class MainFrame extends JFrame {
 		lblNewLabel_5_1.setFont(new Font("Roboto", Font.BOLD, 16));
 		lblNewLabel_5_1.setBounds(0, 0, 128, 38);
 		btnRegistrarte.add(lblNewLabel_5_1);
+	}
+	
+	public Cuenta getCuenta(){
+		return this.cuenta;
 	}
 }

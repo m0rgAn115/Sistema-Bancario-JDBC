@@ -3,7 +3,7 @@ package com.morgan.modelos;
 public class Gerente extends Funcionario implements Validable{
 	
 
-	public Gerente(String numeroCliente, String nombre, int sucursal) {
+	public Gerente(String numeroCliente, String nombre, String sucursal) {
 		super(numeroCliente, nombre, sucursal);
 		// TODO Auto-generated constructor stub
 	}

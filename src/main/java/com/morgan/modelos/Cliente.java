@@ -14,8 +14,20 @@ public class Cliente {
 		this.telefono= telefono;
 	}
 	
+	public Cliente() {
+		
+	}
 	
 	
+	
+	public Cliente(int id, String contraseña, String nombre, String direccion, String telefono) {
+		this.id = id;
+		this.contraseña =contraseña;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.telefono = telefono;
+	}
+
 	public int getId() {
 		return id;
 	}

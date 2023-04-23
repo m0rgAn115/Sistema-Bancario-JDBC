@@ -5,7 +5,7 @@ import com.morgan.modelos.Gerente;
 
 public class TestFuncionario {
 	public static void main(String[] args) {
-		Funcionario f1 = new Gerente("21312314142","Angel Mondragon",1);
+		Funcionario f1 = new Gerente("21312314142","Angel Mondragon","1");
 		
 		f1.setSueldo(2000);
 		

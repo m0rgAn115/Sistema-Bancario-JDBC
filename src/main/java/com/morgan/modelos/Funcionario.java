@@ -3,11 +3,11 @@ package com.morgan.modelos;
 public abstract class Funcionario {
 	private double sueldo;
 	private double bonificacion;
-	private int sucursal;
+	private String sucursal;
 	private String nombre;
 	private String numeroCliente;
 	
-	Funcionario(String numeroCliente,String nombre,int sucursal){
+	Funcionario(String numeroCliente,String nombre,String sucursal){
 		this.numeroCliente=numeroCliente;
 		this.nombre=nombre;
 		this.sucursal=sucursal;
