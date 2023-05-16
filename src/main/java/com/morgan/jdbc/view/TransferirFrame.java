@@ -165,12 +165,14 @@ public class TransferirFrame extends JFrame {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Realizar Transferencia");
-		lblNewLabel_1.addMouseListener(new MouseAdapter() {
+		JLabel btnTransferir = new JLabel("Realizar Transferencia");
+		btnTransferir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				
 				if(comboCuentas.getSelectedIndex()>0 && !txtNumeroCuenta.getText().isBlank()) {
+					if(cuentaController.validarExistencia(Integer.parseInt(txtNumeroCuenta.getText()))) {
 					int cuentaOrigen=cuentas.get(comboCuentas.getSelectedIndex()-1).getNoCuenta();
 					int cuentaDestino= Integer.parseInt(txtNumeroCuenta.getText());
 					
@@ -192,16 +194,16 @@ public class TransferirFrame extends JFrame {
 						tf.setVisible(true);
 						
 						regMovController.registrar(cuentaOrigen,cuentaDestino,monto);
-					}					
+					}}					
 				}else JOptionPane.showMessageDialog(null, "Seleccione cuenta Origen y Cuenta Destino!");
 				
 			}
 		});
-		lblNewLabel_1.setBounds(0, 0, 219, 32);
-		panel_2.add(lblNewLabel_1);
-		lblNewLabel_1.setBackground(new Color(255, 204, 0));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Roboto", Font.BOLD, 18));
+		btnTransferir.setBounds(0, 0, 219, 32);
+		panel_2.add(btnTransferir);
+		btnTransferir.setBackground(new Color(255, 204, 0));
+		btnTransferir.setHorizontalAlignment(SwingConstants.CENTER);
+		btnTransferir.setFont(new Font("Roboto", Font.BOLD, 18));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 0, 51));
@@ -237,21 +239,24 @@ public class TransferirFrame extends JFrame {
 		panel_2_1.setBounds(29, 288, 186, 32);
 		panel.add(panel_2_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Guardar Cuenta");
-		lblNewLabel_1_2.addMouseListener(new MouseAdapter() {
+		JLabel btnGuardarCuenta = new JLabel("Guardar Cuenta");
+		btnGuardarCuenta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String nombreCuenta = JOptionPane.showInputDialog("Ingrese un Alias para la cuenta "+txtNumeroCuenta.getText()+": (OPCIONAL)");
-				cuentasGuardadasController.guardar(nombreCuenta, Integer.parseInt(txtNumeroCuenta.getText()));
-				cargarComboReg();
+				if(cuentaController.validarExistencia(Integer.parseInt(txtNumeroCuenta.getText()))) {
+					String nombreCuenta = JOptionPane.showInputDialog("Ingrese un Alias para la cuenta "+txtNumeroCuenta.getText()+": (OPCIONAL)");
+					cuentasGuardadasController.guardar(nombreCuenta, Integer.parseInt(txtNumeroCuenta.getText()));
+					cargarComboReg();
+				}
+				
 				
 			}
 		});
-		lblNewLabel_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_2.setFont(new Font("Roboto", Font.BOLD, 18));
-		lblNewLabel_1_2.setBackground(new Color(255, 204, 0));
-		lblNewLabel_1_2.setBounds(0, 0, 190, 32);
-		panel_2_1.add(lblNewLabel_1_2);
+		btnGuardarCuenta.setHorizontalAlignment(SwingConstants.CENTER);
+		btnGuardarCuenta.setFont(new Font("Roboto", Font.BOLD, 18));
+		btnGuardarCuenta.setBackground(new Color(255, 204, 0));
+		btnGuardarCuenta.setBounds(0, 0, 190, 32);
+		panel_2_1.add(btnGuardarCuenta);
 		
 		JLabel lblNewLabel = new JLabel("Cuenta Destino");
 		lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 18));

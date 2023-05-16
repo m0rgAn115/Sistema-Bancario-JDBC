@@ -8,6 +8,7 @@ public class Cuenta {
 	private int tipo_cuenta_id;
 	private BigDecimal saldo;
 	private String nombreCuenta;
+	private Enum tipoDeCuenta;
 	
 	public Cuenta() {
 		// TODO Auto-generated constructor stub

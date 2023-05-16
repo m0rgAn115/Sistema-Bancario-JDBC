@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import com.morgan.dao.ClienteDAO;
 import com.morgan.jdbc.controller.CuentaController;
 import com.morgan.jdbc.controller.TipoCuentaController;
+import com.morgan.modelos.NombreTipoCuenta;
 
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
@@ -43,6 +44,7 @@ public class MenuPrincipalFrame extends JFrame {
 	private DefaultTableModel modelo;
 	private JTable tabla;
 	private TipoCuentaController tipoCuentaController;
+	private NombreTipoCuenta nombreTipoCuenta;
 	
 
 	/**
@@ -226,7 +228,8 @@ public class MenuPrincipalFrame extends JFrame {
         lblNewLabel_3_1.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		
+        		TransferirFrame tr = new TransferirFrame();
+        		tr.setVisible(true);
         	}
         });
         lblNewLabel_3_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -243,25 +246,28 @@ public class MenuPrincipalFrame extends JFrame {
         panel.add(panel_2_1);
         panel_2_1.setLayout(null);
         
-        JLabel lblNewLabel_3_2 = new JLabel("Editar Nombre");
-        lblNewLabel_3_2.addMouseListener(new MouseAdapter() {
+        JLabel btnEditarNombre = new JLabel("Editar Nombre");
+        btnEditarNombre.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		int id = Integer.parseInt(modelo.getValueAt(tabla.getSelectedRow(), 1).toString());
-        		String nombre = JOptionPane.showInputDialog(null, "Ingresa el nuevo Nombre: ");
-        		cuentaController.editarNombre(id,nombre);
-        		JOptionPane.showMessageDialog(null, "Se ha cambiado el nombre con Exito!");
-        		tabla.setValueAt(nombre, tabla.getSelectedRow(), 0);
+        		if(tabla.getSelectedRow()!=-1) {
+        			int id = Integer.parseInt(modelo.getValueAt(tabla.getSelectedRow(), 1).toString());
+            		String nombre = JOptionPane.showInputDialog(null, "Ingresa el nuevo Nombre: ");
+            		cuentaController.editarNombre(id,nombre);
+            		JOptionPane.showMessageDialog(null, "Se ha cambiado el nombre con Exito!");
+            		tabla.setValueAt(nombre, tabla.getSelectedRow(), 0);
+        		}else JOptionPane.showMessageDialog(null, "Seleccione una cuenta de la tabla!");
+        		
         		
         	}
         });
-        lblNewLabel_3_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lblNewLabel_3_2.setForeground(new Color(255, 255, 255));
-        lblNewLabel_3_2.setHorizontalTextPosition(SwingConstants.CENTER);
-        lblNewLabel_3_2.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_3_2.setFont(new Font("Roboto", Font.BOLD, 25));
-        lblNewLabel_3_2.setBounds(0, 0, 267, 42);
-        panel_2_1.add(lblNewLabel_3_2);
+        btnEditarNombre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnEditarNombre.setForeground(new Color(255, 255, 255));
+        btnEditarNombre.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnEditarNombre.setHorizontalAlignment(SwingConstants.CENTER);
+        btnEditarNombre.setFont(new Font("Roboto", Font.BOLD, 25));
+        btnEditarNombre.setBounds(0, 0, 267, 42);
+        panel_2_1.add(btnEditarNombre);
         
         JPanel panel_2_2 = new JPanel();
         panel_2_2.setBackground(new Color(255, 0, 51));
@@ -269,29 +275,33 @@ public class MenuPrincipalFrame extends JFrame {
         panel.add(panel_2_2);
         panel_2_2.setLayout(null);
         
-        JLabel lblNewLabel_3_3 = new JLabel("Eliminar Cuenta");
-        lblNewLabel_3_3.addMouseListener(new MouseAdapter() {
+        JLabel btnEliminarCuenta = new JLabel("Eliminar Cuenta");
+        btnEliminarCuenta.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		int id = Integer.parseInt(modelo.getValueAt(tabla.getSelectedRow(), 1).toString());
-        		if(JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar la cuenta "+id)==0) {
-        			cuentaController.eliminar(id);
-        			modelo.removeRow(tabla.getSelectedRow());
-        			JOptionPane.showMessageDialog(null, "Cuenta Eliminada con Exito");
-        		}
+        		if(tabla.getSelectedRow()!=-1) {
+        			int id = Integer.parseInt(modelo.getValueAt(tabla.getSelectedRow(), 1).toString());
+            		if(JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar la cuenta "+id)==0) {
+            			cuentaController.eliminar(id);
+            			modelo.removeRow(tabla.getSelectedRow());
+            			JOptionPane.showMessageDialog(null, "Cuenta Eliminada con Exito");
+            			System.out.println(id);
+            		}
+        		}else JOptionPane.showMessageDialog(null, "Seleccione una cuenta de la tabla!");
         		
-        		System.out.println(id);
+        		
+        		
         		
         		
         	}
         });
-        lblNewLabel_3_3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lblNewLabel_3_3.setForeground(new Color(255, 255, 255));
-        lblNewLabel_3_3.setHorizontalTextPosition(SwingConstants.CENTER);
-        lblNewLabel_3_3.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_3_3.setFont(new Font("Roboto", Font.BOLD, 25));
-        lblNewLabel_3_3.setBounds(0, 0, 267, 42);
-        panel_2_2.add(lblNewLabel_3_3);
+        btnEliminarCuenta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnEliminarCuenta.setForeground(new Color(255, 255, 255));
+        btnEliminarCuenta.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnEliminarCuenta.setHorizontalAlignment(SwingConstants.CENTER);
+        btnEliminarCuenta.setFont(new Font("Roboto", Font.BOLD, 25));
+        btnEliminarCuenta.setBounds(0, 0, 267, 42);
+        panel_2_2.add(btnEliminarCuenta);
         
         JPanel panel_2_3 = new JPanel();
         panel_2_3.setBackground(new Color(0, 102, 102));
@@ -346,26 +356,22 @@ public class MenuPrincipalFrame extends JFrame {
 		
 	}
 
-	private void cargarTabla() {
-		
+	private void cargarTabla() {		
 		
 		modelo = crearTabla();
 		var cuentas = this.cuentaController.listar();   
         cuentas.forEach(cuenta -> modelo.addRow(new Object[] { cuenta.getNombreCuenta(),
-        cuenta.getNoCuenta(), "$" + cuenta.getSaldo(),cuenta.getTipo_cuenta_id()}));
+        cuenta.getNoCuenta(), "$" + cuenta.getSaldo(),nombreTipoCuenta.values()[cuenta.getTipo_cuenta_id()-1]}));
 	}
 	
-	private void Filtrar(int id) {
-		
-		
+	private void Filtrar(int id) {				
 
-	        modelo =  crearTabla();
-	        
+	    modelo =  crearTabla();
 		
 		var cuentas = this.cuentaController.filtrar(id);   
 
         cuentas.forEach(cuenta -> modelo.addRow(new Object[] { cuenta.getNombreCuenta(),
-        cuenta.getNoCuenta(), cuenta.getSaldo(),cuenta.getTipo_cuenta_id()}));
+        cuenta.getNoCuenta(), cuenta.getSaldo(),nombreTipoCuenta.values()[cuenta.getTipo_cuenta_id()-1]}));
 	}
 
 

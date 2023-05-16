@@ -200,7 +200,7 @@ public class RegistrarseFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				RegistrarseFrame.this.dispose();
 				try {
-					MainFrame frame = new MainFrame();
+					IniciarSesionFrame frame = new IniciarSesionFrame();
 					frame.setVisible(true);
 				} catch (Exception ex) {
 					ex.printStackTrace();

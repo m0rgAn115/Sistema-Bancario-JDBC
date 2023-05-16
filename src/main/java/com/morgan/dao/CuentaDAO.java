@@ -175,7 +175,9 @@ public class CuentaDAO {
 				}
 			}
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "La cuenta ingresada No existe");
 			throw new RuntimeException(e);
+			
 		}
 	}
 

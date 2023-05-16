@@ -47,6 +47,10 @@ public class CuentaController {
 		return cuentaDAO.getSaldo(NoCuenta);
 	}
 	
+	public boolean validarExistencia(int id) {
+		return cuentaDAO.validarExistencia(id);
+	}
+	
 	
 
 	

@@ -26,7 +26,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPasswordField;
 import java.awt.Cursor;
 
-public class MainFrame extends JFrame {
+public class IniciarSesionFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNoCliente;
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
 			
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();
+					IniciarSesionFrame frame = new IniciarSesionFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +57,7 @@ public class MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	public IniciarSesionFrame() {
 		clienteController = new ClienteController();
 		cliente = new Cliente();
 		
@@ -90,12 +90,12 @@ public class MainFrame extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		lblNewLabel_1.setIcon(new ImageIcon(MainFrame.class.getResource("/com/morgan/imagenes/Imagen3.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(IniciarSesionFrame.class.getResource("/com/morgan/imagenes/Imagen3.png")));
 		lblNewLabel_1.setBounds(45, 90, 130, 130);
 		panel_1.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/com/morgan/imagenes/Imagen1.jpg")));
+		lblNewLabel.setIcon(new ImageIcon(IniciarSesionFrame.class.getResource("/com/morgan/imagenes/Imagen1.jpg")));
 		lblNewLabel.setBounds(10, 0, 188, 398);
 		panel_1.add(lblNewLabel);
 		
@@ -213,7 +213,7 @@ public class MainFrame extends JFrame {
 				int id = Integer.parseInt(txtNoCliente.getText());
 				String contraseña = passContraseña.getText();				
 				if(clienteController.iniciarSesion(id,contraseña)) {
-					MainFrame.this.dispose();
+					IniciarSesionFrame.this.dispose();
 					MenuPrincipalFrame menu = new MenuPrincipalFrame();
 					menu.setVisible(true);
 				}
@@ -238,7 +238,7 @@ public class MainFrame extends JFrame {
 		lblNewLabel_5_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MainFrame.this.dispose();
+				IniciarSesionFrame.this.dispose();
 				try {
 					RegistrarseFrame frame = new RegistrarseFrame();
 					frame.setVisible(true);
